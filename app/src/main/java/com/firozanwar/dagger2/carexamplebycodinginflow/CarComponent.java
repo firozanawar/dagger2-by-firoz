@@ -7,6 +7,6 @@ public interface CarComponent {
 
     Car getCar();
 
-    // Note - inject() paramter can't take a super class i.e AppCompat 'll not work here.
+    // Note - inject() parameter can't take a super class i.e AppCompat 'll not work here.
     void inject(MainActivity mainActivity);
 }
