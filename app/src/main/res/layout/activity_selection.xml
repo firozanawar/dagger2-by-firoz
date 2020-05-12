@@ -17,14 +17,13 @@
             android:text="Dagger2 Car example" />
 
         <Button
-            android:id="@+id/btn_video_basic_ui"
+            android:id="@+id/btn_dagger2_in_android"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@android:color/holo_orange_dark"
-            android:text="Basic Integration With UI"
-            android:visibility="gone" />
+            android:text="Dagger2 in Android" />
 
         <Button
             android:id="@+id/btn_video_adv"

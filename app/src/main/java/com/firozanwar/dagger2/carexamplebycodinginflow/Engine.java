@@ -2,10 +2,12 @@ package com.firozanwar.dagger2.carexamplebycodinginflow;
 
 import javax.inject.Inject;
 
-public class Engine {
+public interface Engine {
 
-    @Inject
-    Engine(){
+//    @Inject
+//    Engine(){
+//
+//    }
 
-    }
+    void start();
 }
