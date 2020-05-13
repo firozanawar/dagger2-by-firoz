@@ -82,6 +82,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
         authViewModel.authenticateWithId(Integer.parseInt(userId.getText().toString()));
     }
 
+    // Commented because it enhanced code.
     /*private void subscribeUser(){
         authViewModel.observerUser().observe(this, new Observer<User>() {
             @Override
@@ -93,7 +94,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
     }*/
 
     private void subscribeUser() {
-        authViewModel.observerUser().observe(this, new Observer<AuthResource<User>>() {
+        authViewModel.observerAuthState().observe(this, new Observer<AuthResource<User>>() {
             @Override
             public void onChanged(AuthResource<User> userAuthResource) {
                 if (userAuthResource != null) {

@@ -1,0 +1,48 @@
+package com.firozanwar.dagger2.codingwithmitch;
+
+import android.util.Log;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.Observer;
+
+import com.firozanwar.dagger2.codingwithmitch.model.User;
+import com.firozanwar.dagger2.codingwithmitch.ui.auth.AuthResource;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
+public class SessionManager {
+
+    private static final String TAG = "AuthActivity";
+
+    private MediatorLiveData<AuthResource<User>> cachedUser = new MediatorLiveData<>();
+
+    @Inject
+    public SessionManager() {
+    }
+
+    public void authenticateWithId(final LiveData<AuthResource<User>> source) {
+        if (cachedUser != null) {
+            cachedUser.setValue(AuthResource.loading((User) null));
+            cachedUser.addSource(source, new Observer<AuthResource<User>>() {
+                @Override
+                public void onChanged(AuthResource<User> userAuthResource) {
+                    cachedUser.setValue(userAuthResource);
+                    cachedUser.removeSource(source);
+                }
+            });
+        }
+    }
+
+    private void logout() {
+        Log.d(TAG, "logout: ");
+        cachedUser.setValue(AuthResource.<User>logout());
+    }
+
+    public LiveData<AuthResource<User>> getAuthUser()
+    {
+        return cachedUser;
+    }
+}

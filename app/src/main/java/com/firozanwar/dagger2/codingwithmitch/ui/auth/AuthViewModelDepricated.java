@@ -4,9 +4,9 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataReactiveStreams;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.firozanwar.dagger2.codingwithmitch.SessionManager;
 import com.firozanwar.dagger2.codingwithmitch.model.User;
 import com.firozanwar.dagger2.codingwithmitch.network.auth.AuthApi;
 
@@ -17,21 +17,19 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class AuthViewModel extends ViewModel {
+public class AuthViewModelDepricated extends ViewModel {
 
     private static final String TAG = "AuthActivity";
 
     private AuthApi mAuthApi;
-    private SessionManager sessionManager;
 
     //private MediatorLiveData<User> authUser = new MediatorLiveData<>();  // General
-    //private MediatorLiveData<AuthResource<User>> authUser = new MediatorLiveData<>();    //
+    private MediatorLiveData<AuthResource<User>> authUser = new MediatorLiveData<>();    //
 
     @Inject
-    public AuthViewModel(AuthApi authApi, SessionManager sessionManager) {
+    public AuthViewModelDepricated(AuthApi authApi) {
         Log.d(TAG, "AuthViewModel is working like a charm..");
         mAuthApi = authApi;
-        this.sessionManager = sessionManager;
 
         if (mAuthApi == null) {
             Log.d(TAG, "AuthViewModel authApi is null: ");
@@ -66,14 +64,8 @@ public class AuthViewModel extends ViewModel {
     }
 
     public void authenticateWithId(int userId) {
-
-        Log.d(TAG, "authenticateWithId: Attempting to login");
-        sessionManager.authenticateWithId(queryUserID(userId));
-    }
-
-    private LiveData<AuthResource<User>> queryUserID(int userId) {
-
-        return LiveDataReactiveStreams.fromPublisher(
+        authUser.setValue(AuthResource.loading((User) null));
+        final LiveData<AuthResource<User>> source = LiveDataReactiveStreams.fromPublisher(
                 mAuthApi.getUsers(userId)
                         .onErrorReturn(new Function<Throwable, User>() {
                             @Override
@@ -97,9 +89,17 @@ public class AuthViewModel extends ViewModel {
 
                         .subscribeOn(Schedulers.io())
         );
+
+        authUser.addSource(source, new androidx.lifecycle.Observer<AuthResource<User>>() {
+            @Override
+            public void onChanged(AuthResource<User> userAuthResource) {
+                authUser.setValue(userAuthResource);
+                authUser.removeSource(source);
+            }
+        });
     }
 
-    public LiveData<AuthResource<User>> observerAuthState() {
-        return sessionManager.getAuthUser();
+    public LiveData<AuthResource<User>> observerUser() {
+        return authUser;
     }
 }
