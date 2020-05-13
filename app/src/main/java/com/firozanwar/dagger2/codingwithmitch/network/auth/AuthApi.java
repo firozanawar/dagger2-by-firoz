@@ -15,6 +15,5 @@ public interface AuthApi {
     @GET("users/{id}")
     Flowable<User> getUsers(
             @Path("id") int id
-
     );
 }

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.firozanwar.dagger2">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".BaseApplication"
@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".codingwithmitch.ui.main.MainLandingActivity"/>
         <activity android:name=".codingwithmitch.ui.auth.AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,9 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".carexamplebycodinginflow.MainActivity" />
-        <activity android:name=".SelectionActivity">
-
-        </activity>
+        <activity android:name=".SelectionActivity"></activity>
     </application>
 
 </manifest>

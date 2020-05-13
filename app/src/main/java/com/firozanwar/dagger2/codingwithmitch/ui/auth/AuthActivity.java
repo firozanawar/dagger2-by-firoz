@@ -1,5 +1,6 @@
 package com.firozanwar.dagger2.codingwithmitch.ui.auth;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.bumptech.glide.RequestManager;
 import com.firozanwar.dagger2.R;
 import com.firozanwar.dagger2.codingwithmitch.model.User;
+import com.firozanwar.dagger2.codingwithmitch.ui.main.MainLandingActivity;
 import com.firozanwar.dagger2.codingwithmitch.viewmodels.ViewModelProvidersFactory;
 
 import javax.inject.Inject;
@@ -131,8 +133,8 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
 
     private void onLoginSuccess(){
         Log.d(TAG, "onLoginSuccess: login successful!");
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
-//        finish();
+        Intent intent = new Intent(this, MainLandingActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
