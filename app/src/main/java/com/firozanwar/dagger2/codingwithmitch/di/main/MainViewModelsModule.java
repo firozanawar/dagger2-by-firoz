@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.firozanwar.dagger2.codingwithmitch.di.ViewModelKey;
 import com.firozanwar.dagger2.codingwithmitch.ui.auth.AuthViewModel;
+import com.firozanwar.dagger2.codingwithmitch.ui.main.post.PostViewModel;
 import com.firozanwar.dagger2.codingwithmitch.ui.main.profile.ProfileViewModel;
 
 import dagger.Binds;
@@ -17,4 +18,9 @@ public abstract class MainViewModelsModule {
     @IntoMap
     @ViewModelKey(ProfileViewModel.class)
     public abstract ViewModel bindMainViewModel(ProfileViewModel profileViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PostViewModel.class)
+    public abstract ViewModel bindPostViewModel(PostViewModel postViewModel);
 }
