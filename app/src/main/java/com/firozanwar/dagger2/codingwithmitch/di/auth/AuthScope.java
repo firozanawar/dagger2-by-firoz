@@ -1,4 +1,4 @@
-package com.firozanwar.dagger2.codingwithmitch.di;
+package com.firozanwar.dagger2.codingwithmitch.di.auth;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -10,5 +10,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Scope
 @Documented
 @Retention(RUNTIME)
-public @interface MyCustomScope {
+public @interface AuthScope  {
 }

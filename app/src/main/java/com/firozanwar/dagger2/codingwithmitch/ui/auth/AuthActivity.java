@@ -21,6 +21,7 @@ import com.firozanwar.dagger2.codingwithmitch.ui.main.MainLandingActivity;
 import com.firozanwar.dagger2.codingwithmitch.viewmodels.ViewModelProvidersFactory;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
@@ -43,6 +44,14 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
     @Inject
     ViewModelProvidersFactory providersFactory;
 
+    @Inject
+    @Named("app_user")
+    User user1;
+
+    @Inject
+    @Named("auth_user")
+    User user2;
+
     AuthViewModel authViewModel;
 
     private EditText userId;
@@ -59,6 +68,10 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
 
         Log.d(TAG, "onCreate: " + myString);
         Log.d(TAG, "onCreate, App is : " + isApp);
+
+        // Rotation will give the same user1 because of singlton
+        Log.d(TAG, "onCreate, app user1 is : " + user1);
+        Log.d(TAG, "onCreate, auth user1 is : " + user2);
 
         authViewModel = ViewModelProviders.of(this, providersFactory).get(AuthViewModel.class);
 

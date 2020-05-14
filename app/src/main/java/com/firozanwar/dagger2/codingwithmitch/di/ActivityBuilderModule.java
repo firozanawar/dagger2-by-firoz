@@ -1,9 +1,11 @@
 package com.firozanwar.dagger2.codingwithmitch.di;
 
 import com.firozanwar.dagger2.codingwithmitch.di.auth.AuthModule;
+import com.firozanwar.dagger2.codingwithmitch.di.auth.AuthScope;
 import com.firozanwar.dagger2.codingwithmitch.di.auth.AuthViewModelModule;
 import com.firozanwar.dagger2.codingwithmitch.di.main.MainFragmentBuilderModule;
 import com.firozanwar.dagger2.codingwithmitch.di.main.MainModule;
+import com.firozanwar.dagger2.codingwithmitch.di.main.MainScope;
 import com.firozanwar.dagger2.codingwithmitch.di.main.MainViewModelsModule;
 import com.firozanwar.dagger2.codingwithmitch.ui.auth.AuthActivity;
 import com.firozanwar.dagger2.codingwithmitch.ui.main.MainLandingActivity;
@@ -15,6 +17,7 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class ActivityBuilderModule {
 
     // This behave like a subComponent
+    @AuthScope
     @ContributesAndroidInjector(
             modules = {AuthViewModelModule.class, AuthModule.class}
     )
@@ -28,6 +31,7 @@ public abstract class ActivityBuilderModule {
 
     // This behave like a subComponent
     // MainFragmentBuilderModule will only be availble to MainLandingActivity
+    @MainScope
     @ContributesAndroidInjector(
             modules = {MainFragmentBuilderModule.class, MainViewModelsModule.class, MainModule.class}
     )

@@ -9,8 +9,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.firozanwar.dagger2.R;
+import com.firozanwar.dagger2.codingwithmitch.model.User;
 import com.firozanwar.dagger2.codingwithmitch.utils.Constants;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -81,6 +83,15 @@ public class AppModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+    }
+
+
+    // Rotation will give the same user1 because of singlton
+    @Singleton
+    @Provides
+    @Named("app_user")
+    static User someUser(){
+        return new User();
     }
 }
 
